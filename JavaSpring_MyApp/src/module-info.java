@@ -1,0 +1,2 @@
+module JavaSpring_MyApp {
+}
