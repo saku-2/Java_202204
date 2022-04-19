@@ -11,6 +11,6 @@ public class HelloController {
 private String hello(Model model){
 	
 	model.addAttribute("msg", "Hello Spring!");
-return "/index.html";
+return "/helloIndex.html";
 }
 }
