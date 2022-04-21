@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.helloFolder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +11,6 @@ public class HelloController {
 private String hello(Model model){
 	
 	model.addAttribute("msg", "Hello Spring!");
-return "/helloIndex.html";
+return "/helloFolder/helloIndex.html";
 }
 }
