@@ -23,7 +23,6 @@
     <div th:object="${loginForm}">
 		<p th:text="*{name}"></p>
 		<p th:text="*{tel}"></p>
-    <!--<form th:action="@{/login}" th:object="${loginForm}" method="post">-->
     <form th:action="@{/login/login}" th:object="${loginForm}" method="post">
 		<input type="hidden" name="name" th:value="*{name}">
 		<input type="hidden" name="tel" th:value="*{tel}">

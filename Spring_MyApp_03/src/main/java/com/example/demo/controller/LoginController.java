@@ -82,7 +82,11 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,6 +99,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
+	
+	private final JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public LoginController(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+	
 
 	@GetMapping(value="/login")
 	private String hello(LoginForm loginForm, 
@@ -114,6 +126,17 @@ public class LoginController {
 			Model model){
 		
 		model.addAttribute("title", "Login Back!");
+		
+		String name = loginForm.getName().toString();
+		String pass = loginForm.getTel().toString();
+		
+		model.addAttribute("title", name + ", " + pass);
+		
+
+		
+//		String sql = "SELECT id, name, email "
+//				+ "FROM inquiry WHERE id = 1";
+//		Map<String, Object> map = jdbcTemplate.queryForMap(sql);
 		
 		return "/View/loginView.html";
 	}
@@ -175,18 +198,52 @@ public class LoginController {
 		
 		model.addAttribute("loginForm", loginForm);
 		
-//		List<LoginForm> fruits = new ArrayList<LoginForm>() {
-//			{
-//				add(loginForm);
-//			}
-//		};
+////		List<LoginForm> fruits = new ArrayList<LoginForm>() {
+////			{
+////				add(loginForm);
+////			}
+////		};
+//		
+//		List<TableForm> fruits = new ArrayList<TableForm>();
+//
+//		TableForm apple = new TableForm(1,"ÇËÇÒÇ≤","Ç†Ç©");
+//	    fruits.add(apple);
+//
+//	    TableForm lemon = new TableForm(2, "ÉåÉÇÉì", "Ç´Ç¢ÇÎ");
+//	    fruits.add(lemon);
+//
+//	    TableForm kiwi = new TableForm(3, "ÉLÉEÉC", "Ç›Ç«ÇË");
+//	    fruits.add(kiwi);
+//
+//	    TableForm orange = new TableForm(4, "Ç›Ç©ÇÒ", "ÉIÉåÉìÉW");
+//	    fruits.add(orange);
+//
+//	    model.addAttribute("fruits", fruits);
+//	    
+	    
+	    String sql = "SELECT id, name, email "
+				+ "FROM inquiry WHERE id = 1";
+		Map<String, Object> map = jdbcTemplate.queryForMap(sql);
+
+		//ââèK1-1 sql2ÇÃïœêîñºÇ≈id2ÇÃÇ®ñ‚Ç¢çáÇÌÇπÇéÊìæÇ∑ÇÈSQLï∂ÇíËã`Ç∑ÇÈ
+		String sql2 = "SELECT id, name, email "
+				+ "FROM inquiry WHERE id = 2";
+		//ââèK1-2 Map<String,ObjectÅÑå^ÇÃmap2ÇÃïœêîñºÇ…queryForMapÇ≈sql2ÇìnÇµÇΩåãâ Çäiî[Ç∑ÇÈ
+		Map<String, Object> map2 = jdbcTemplate.queryForMap(sql2);
+		//ââèK1-3 model.addAttributeÇ≈name2,email2Ç∆Ç¢Ç§ñºëOÇ≈map2ÇÃname,emailÇê›íËÇ∑ÇÈ
+		model.addAttribute("name2", map2.get("name"));
+		model.addAttribute("email2", map2.get("email"));
+
+		model.addAttribute("name", map.get("name"));
+		model.addAttribute("email", map.get("email"));
+		model.addAttribute("title", "Inquiry Form");
+//		return "test";
 		
 		List<TableForm> fruits = new ArrayList<TableForm>();
-
-		TableForm apple = new TableForm(1,"ÇËÇÒÇ≤","Ç†Ç©");
+		TableForm apple = new TableForm(1,"ÇËÇÒÇ≤", (String)map.get("name"));
 	    fruits.add(apple);
 
-	    TableForm lemon = new TableForm(2, "ÉåÉÇÉì", "Ç´Ç¢ÇÎ");
+	    TableForm lemon = new TableForm(2, "ÉåÉÇÉì", (String)map2.get("name"));
 	    fruits.add(lemon);
 
 	    TableForm kiwi = new TableForm(3, "ÉLÉEÉC", "Ç›Ç«ÇË");
