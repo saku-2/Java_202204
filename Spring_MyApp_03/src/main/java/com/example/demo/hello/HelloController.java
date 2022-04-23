@@ -1,4 +1,4 @@
-package com.example.demo.helloFolder;
+package com.example.demo.hello;
 //import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
