@@ -25,7 +25,8 @@
 	<div th:if="${param.complete}" >
 		OK!
 	</div>
-	<form method="post" action="#" th:action="@{/menu}" th:object="${loginForm}">
+	<!--<form method="post" action="#" th:action="@{/menu}" th:object="${loginForm}">-->
+	<form method="post" action="#" th:action="@{/login/menu}" th:object="${loginForm}">
 	<!--<label for="name">id : </label>
 	<input id="id" name="id" type="text" th:value = "*{id}"><br>
 	<div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>-->
